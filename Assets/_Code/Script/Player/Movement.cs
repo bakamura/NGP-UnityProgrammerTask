@@ -30,6 +30,8 @@ namespace NGPTask.Player {
         private Vector2 _linearVelocity;
 
         protected override void Awake() {
+            base.Awake();
+
             if (!TryGetComponent(out _rigidBody)) Debug.LogError($"No '{nameof(Rigidbody2D)}' attached to {nameof(Movement)}");
             if (_movementActionRef == null) Debug.LogError($"No asset assigned to 'Movement Action Ref'");
         }
