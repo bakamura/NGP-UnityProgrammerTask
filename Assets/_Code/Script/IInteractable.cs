@@ -4,9 +4,7 @@ namespace NGPTask.Object {
 
         public string name { get; }
 
-        public void Interact() {
-
-        }
+        public void Interact();
 
     }
 }
