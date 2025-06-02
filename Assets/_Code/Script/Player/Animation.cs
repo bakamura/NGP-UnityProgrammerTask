@@ -9,6 +9,7 @@ namespace NGPTask.Player {
         private Animator _animator;
 
         private int DIRECTION = Animator.StringToHash("Direction");
+        private int MOVE_SPEED = Animator.StringToHash("MoveSpeed");
 
         private void Awake() {
             if (!TryGetComponent(out _animator)) Debug.LogError($"No '{nameof(Animator)}' attached to {nameof(Animation)}");
@@ -16,11 +17,17 @@ namespace NGPTask.Player {
         }
 
         private void Start() {
+            Movement.Instance.OnMove.AddListener(MoveSpeedUpdate);
             Movement.Instance.OnMove.AddListener(DirectionUpdate);
         }
 
         private void OnDestroy() {
+            Movement.Instance.OnMove.RemoveListener(MoveSpeedUpdate);
             Movement.Instance.OnMove.RemoveListener(DirectionUpdate);
+        }
+
+        private void MoveSpeedUpdate(Vector2 direction) {
+            _animator.SetFloat(MOVE_SPEED, direction.magnitude);
         }
 
         private void DirectionUpdate(Vector2 direction) {
