@@ -14,20 +14,22 @@ namespace NGPTask.Player {
         [Header("Attributes")]
 
         [SerializeField] private Collider2D _interactCollider;
+        [SerializeField] private ContactFilter2D _interactFilter;
 
         [Header("Cache")]
 
-        private List<Collider2D> _interactablesInRange;
+        private List<Collider2D> _interactablesInRange = new List<Collider2D>();
         private IInteractable _interactableClosest;
 
         private void Start() {
-            _interactActionRef.action.performed += TryInteract;
+            _interactActionRef.action.Enable();
+            _interactActionRef.action.started += TryInteract;
 
             Movement.Instance.OnMove.AddListener(InteractPointUpdate);
         }
 
         private void OnDestroy() {
-            _interactActionRef.action.performed -= TryInteract;
+            _interactActionRef.action.started -= TryInteract;
 
             Movement.Instance.OnMove.RemoveListener(InteractPointUpdate);
         }
@@ -37,7 +39,7 @@ namespace NGPTask.Player {
         }
 
         private void TryInteract(InputAction.CallbackContext context) {
-            if (_interactCollider.Overlap(_interactablesInRange) > 0) {
+            if (_interactCollider.Overlap(_interactFilter, _interactablesInRange) > 0) {
                 if (_interactablesInRange.OrderBy(collider => Vector2.Distance(_interactCollider.transform.position, collider.transform.position)).FirstOrDefault().TryGetComponent(out _interactableClosest))
                     _interactableClosest.Interact();
                 else Debug.LogWarning($"'{_interactableClosest.name}' doesn't have {nameof(IInteractable)}, but is in the Interactable Layer!");
