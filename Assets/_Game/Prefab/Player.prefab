@@ -199,5 +199,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementActionRef: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  _speedMax: 2
-  _acceleration: 0
+  _speedMax: 3.5
+  _acceleration: 14

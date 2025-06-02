@@ -20,9 +20,10 @@ namespace NGPTask.Player {
         private Rigidbody2D _rigidBody;
 
         private Vector2 _direction;
+        private Vector2 _linearVelocity;
 
         private void Awake() {
-            if (!TryGetComponent(out _rigidBody)) Debug.LogError($"No behaviour of type '{_rigidBody.GetType().Name}' attached to {nameof(Movement)}");
+            if (!TryGetComponent(out _rigidBody)) Debug.LogError($"No '{nameof(Rigidbody2D)}' attached to {nameof(Movement)}");
             if (_movementActionRef == null) Debug.LogError($"No asset assigned to 'Movement Action Ref'");
         }
 
@@ -49,7 +50,10 @@ namespace NGPTask.Player {
         }
 
         private void Move() {
-            _rigidBody.linearVelocity = _direction * _speedMax;
+            _linearVelocity = _acceleration > 0f ?
+                              Vector2.MoveTowards(_linearVelocity, _direction * _speedMax, _acceleration * Time.fixedDeltaTime) :
+                              _rigidBody.linearVelocity = _direction * _speedMax;
+            _rigidBody.linearVelocity = _linearVelocity;
         }
 
     }
