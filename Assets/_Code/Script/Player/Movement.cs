@@ -67,7 +67,7 @@ namespace NGPTask.Player {
                 if (_linearVelocity == Vector2.zero) OnMoveEnd.Invoke(_linearVelocity);
             }
             else if (_linearVelocity != Vector2.zero) OnMoveStart.Invoke(_linearVelocity);
-            OnMove.Invoke(_rigidBody.linearVelocity);
+            OnMove.Invoke(_linearVelocity);
 
             _rigidBody.linearVelocity = _linearVelocity;
         }

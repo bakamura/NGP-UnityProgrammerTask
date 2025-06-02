@@ -22,7 +22,6 @@ namespace NGPTask.Player {
         private IInteractable _interactableClosest;
 
         private void Start() {
-            _interactActionRef.action.Enable();
             _interactActionRef.action.started += TryInteract;
 
             Movement.Instance.OnMove.AddListener(InteractPointUpdate);
