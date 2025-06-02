@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace NGPTask.Player {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Movement : MonoBehaviour {
+    public class Movement : Singleton<Movement> {
 
         [Header("Events")]
 
@@ -29,7 +29,9 @@ namespace NGPTask.Player {
         private Vector2 _direction;
         private Vector2 _linearVelocity;
 
-        private void Awake() {
+        protected override void Awake() {
+            base.Awake();
+
             if (!TryGetComponent(out _rigidBody)) Debug.LogError($"No '{nameof(Rigidbody2D)}' attached to {nameof(Movement)}");
             if (_movementActionRef == null) Debug.LogError($"No asset assigned to 'Movement Action Ref'");
         }
@@ -65,7 +67,7 @@ namespace NGPTask.Player {
                 if (_linearVelocity == Vector2.zero) OnMoveEnd.Invoke(_linearVelocity);
             }
             else if (_linearVelocity != Vector2.zero) OnMoveStart.Invoke(_linearVelocity);
-            OnMove.Invoke(_rigidBody.linearVelocity);
+            OnMove.Invoke(_linearVelocity);
 
             _rigidBody.linearVelocity = _linearVelocity;
         }
