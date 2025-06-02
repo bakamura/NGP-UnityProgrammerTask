@@ -1,9 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace NGPTask.Player {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Movement : MonoBehaviour {
+
+        [Header("Events")]
+
+        [field: SerializeField] public UnityEvent<Vector2> OnMove { get; private set; } = new UnityEvent<Vector2>();
+        [field: SerializeField] public UnityEvent<Vector2> OnMoveStart { get; private set; } = new UnityEvent<Vector2>();
+        [field: SerializeField] public UnityEvent<Vector2> OnMoveEnd { get; private set; } = new UnityEvent<Vector2>();
 
         [Header("Inputs")]
 
@@ -53,6 +60,13 @@ namespace NGPTask.Player {
             _linearVelocity = _acceleration > 0f ?
                               Vector2.MoveTowards(_linearVelocity, _direction * _speedMax, _acceleration * Time.fixedDeltaTime) :
                               _rigidBody.linearVelocity = _direction * _speedMax;
+
+            if(_rigidBody.linearVelocity != Vector2.zero) {
+                if (_linearVelocity == Vector2.zero) OnMoveEnd.Invoke(_linearVelocity);
+            }
+            else if (_linearVelocity != Vector2.zero) OnMoveStart.Invoke(_linearVelocity);
+            OnMove.Invoke(_rigidBody.linearVelocity);
+
             _rigidBody.linearVelocity = _linearVelocity;
         }
 
