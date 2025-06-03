@@ -50,7 +50,7 @@ namespace NGPTask.UI {
         private void Refresh() {
             IReadOnlyList<Inventory.InventorySlot> inventorySlots = Inventory.Instance.Slots;
             if (_slotDisplays.Count != inventorySlots.Count) RefreshSizeTo(inventorySlots.Count);
-            for (int i = 0; i < _slotDisplays.Count; i++) _slotDisplays[i].DisplayUpdate(inventorySlots[i]);
+            for (int i = 0; i < _slotDisplays.Count; i++) _slotDisplays[i].DisplayUpdate(inventorySlots[i], i);
         }
 
         private void RefreshSizeTo(int sizeNew) {

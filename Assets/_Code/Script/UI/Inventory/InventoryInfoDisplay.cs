@@ -13,25 +13,29 @@ namespace NGPTask.UI {
         [Header("Cache")]
 
         private RectTransform _rectTransform;
+        public int IndexCurrent { get; private set; }
 
         protected override void Awake() {
             base.Awake();
 
             if (!TryGetComponent(out _rectTransform)) Debug.LogError($"{nameof(InventoryInfoDisplay)} '{name}' has no {nameof(RectTransform)} attached");
+            gameObject.SetActive(false);
         }
 
         private void Update() {
             if (gameObject.activeInHierarchy) _rectTransform.anchoredPosition = Mouse.current.position.ReadValue();
         }
 
-        public void InfoDisplay(string name, string description) {
+        public void InfoDisplay(string name, string description, int index) {
             gameObject.SetActive(true);
             _nameDisplay.text = name;
             _descriptionDisplay.text = description;
+            IndexCurrent = index;
         }
 
         public void HideDisplay() {
             gameObject.SetActive(false);
+            IndexCurrent = -1;
         }
 
     }
