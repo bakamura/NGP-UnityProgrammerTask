@@ -61,6 +61,11 @@ namespace NGPTask.Player {
             for (int i = 0; i < _slotAmount; i++) _slots.Add(new InventorySlot());
         }
 
+        public int GetAmountof(Item type) {
+            int amount = 0;
+            foreach(InventorySlot slot in _slots) if(slot.ItemType == type) amount += slot.ItemAmount;
+            return amount;
+        }
 
         /// <returns>The excess amount that didn't fit.</returns>
         public int TryAdd(Item type, int amount = 1) {
@@ -72,6 +77,7 @@ namespace NGPTask.Player {
                 if (slot.IsEmpty) amount = slot.Set(type, amount);
                 if (amount <= 0) return 0;
             }
+            Debug.LogWarning($"Couldn't add {amount} of {type.name} to inventory, some system is probably faulty");
             return amount;
         }
 
@@ -81,6 +87,7 @@ namespace NGPTask.Player {
                 if (slot.ItemType == type) amount = slot.TryRemove(amount);
                 if (amount <= 0) return 0;
             }
+            Debug.LogWarning($"Couldn't remove {amount} of {type.name} from inventory, some system is probably faulty");
             return amount;
         }
 
