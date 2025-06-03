@@ -15,7 +15,8 @@ namespace NGPTask.UI {
 
         public void DisplayUpdate(Inventory.InventorySlot slotDisplayed) {
             ItemTypeCurrent = slotDisplayed.ItemType;
-            _iconDisplay.sprite = ItemTypeCurrent.Icon;
+            _iconDisplay.sprite = ItemTypeCurrent?.Icon;
+            _iconDisplay.enabled = _iconDisplay.sprite != null;
             _amountDisplay.text = slotDisplayed.ItemAmount > 1 ? $"{slotDisplayed.ItemAmount}" : "";
         }
 

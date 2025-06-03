@@ -3,7 +3,7 @@ using UnityEngine;
 using NGPTask.Item;
 
 namespace NGPTask.UI {
-    [RequireComponent(typeof(Menu))]
+    //[RequireComponent(typeof(Menu))]
     public class InventoryDisplay : MonoBehaviour {
 
         [Header("Attributes")]
@@ -14,8 +14,8 @@ namespace NGPTask.UI {
         [Header("Cache")]
 
         private bool _isOpen; // Could be moved to Menu
-        private bool _inventoryDirty;
-        private List<InventorySlotDisplay> _slotDisplays;
+        private bool _inventoryDirty = true;
+        private List<InventorySlotDisplay> _slotDisplays = new List<InventorySlotDisplay>();
 
         private void Awake() {
             if (TryGetComponent(out Menu menu)) {
