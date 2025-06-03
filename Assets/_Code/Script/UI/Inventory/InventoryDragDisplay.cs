@@ -50,7 +50,6 @@ namespace NGPTask.UI {
         private void TrySwap(/*InputAction.CallbackContext context*/) {
             gameObject.SetActive(false);
 
-            Debug.Log($"{_indexCurrent} <-> {InventoryInfoDisplay.Instance.indexCurrent}");
             if (InventoryInfoDisplay.Instance.indexCurrent >= 0) Inventory.Instance.SlotSwap(_indexCurrent, InventoryInfoDisplay.Instance.indexCurrent);
         }
 

@@ -44,4 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88436adc544ca8343990611a4ccabead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slotAmount: 12
+  <OnChange>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  _slotAmount: 17
