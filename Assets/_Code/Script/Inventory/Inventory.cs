@@ -58,6 +58,15 @@ namespace NGPTask.Item {
                 ItemType = null;
                 ItemAmount = 0;
             }
+
+            public string GetSaveString() => $"{ItemType.name}/{ItemAmount}";
+            
+            public void SetSaveString(string saveString) {
+                string[] strs = saveString.Split('/');
+                ItemType = Resources.Load<ItemType>(strs[0]);
+                ItemAmount = int.Parse(strs[1]);
+            }
+
         }
 
         protected override void Awake() {
@@ -126,6 +135,10 @@ namespace NGPTask.Item {
                 else Debug.LogWarning($"Trying to Use '{_slots[slotIndex].ItemType.name}' but can't Use!");
             }
             else Debug.LogWarning($"Trying to Use '{_slots[slotIndex].ItemType.name}' but isn't IUsable!");
+        }
+
+        public void SetFromSave(string[] saveStrings) {
+            //
         }
 
     }
