@@ -13,7 +13,7 @@ namespace NGPTask.UI {
         [Header("Cache")]
 
         private RectTransform _rectTransform;
-        public int IndexCurrent { get; private set; }
+        public int indexCurrent;
 
         protected override void Awake() {
             base.Awake();
@@ -26,16 +26,15 @@ namespace NGPTask.UI {
             if (gameObject.activeInHierarchy) _rectTransform.anchoredPosition = Mouse.current.position.ReadValue();
         }
 
-        public void InfoDisplay(string name, string description, int index) {
+        public void InfoDisplay(string name, string description) {
             gameObject.SetActive(true);
             _nameDisplay.text = name;
             _descriptionDisplay.text = description;
-            IndexCurrent = index;
         }
 
         public void HideDisplay() {
             gameObject.SetActive(false);
-            IndexCurrent = -1;
+            indexCurrent = -1;
         }
 
     }

@@ -25,7 +25,8 @@ namespace NGPTask.UI {
         }
 
         public void OnPointerEnter(PointerEventData eventData) {
-            if(ItemTypeCurrent != null) InventoryInfoDisplay.Instance.InfoDisplay(ItemTypeCurrent.DisplayName, ItemTypeCurrent.Description, _index);
+            if(ItemTypeCurrent != null) InventoryInfoDisplay.Instance.InfoDisplay(ItemTypeCurrent.DisplayName, ItemTypeCurrent.Description);
+            InventoryInfoDisplay.Instance.indexCurrent = _index;
         }
 
         public void OnPointerExit(PointerEventData eventData) {
