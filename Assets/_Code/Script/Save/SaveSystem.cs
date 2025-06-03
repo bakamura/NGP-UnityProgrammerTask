@@ -9,6 +9,9 @@ using UnityEngine.Events;
 namespace NGPTask.Save {
     public class SaveSystem : Singleton<SaveSystem> {
 
+        [SerializeField] private bool _loadSlot0OnSetup;
+        [SerializeField] private bool _autoSaveSlot0OnQuit;
+
         [field: SerializeField] public UnityEvent OnLoadStart { get; private set; }
         [field: SerializeField] public UnityEvent OnLoadEnd { get; private set; }
         [field: SerializeField] public UnityEvent OnSaveStart { get; private set; }
@@ -26,18 +29,28 @@ namespace NGPTask.Save {
             if (!Directory.Exists(_progressPath)) Directory.CreateDirectory(_progressPath);
         }
 
-        public void SaveProgressInSlot(int saveSlotId) {
-            ProgressUpdate();
-            StartCoroutine(SaveProgress(saveSlotId));
+        private void Start() {
+            if (_loadSlot0OnSetup) ApplyProgressFromSlot(0);
+            if(_autoSaveSlot0OnQuit) Application.quitting += SaveProgress0OnQuit;
         }
 
-        private IEnumerator SaveProgress(int saveSlotId) {
+        public void SaveProgressInSlot(int saveSlotId) {
+            ProgressUpdate();
+            StartCoroutine(SaveProgress($"{_progress}/{saveSlotId}.sav"));
+        }
+
+        private IEnumerator SaveProgress(string savePath) {
             OnSaveStart.Invoke();
 
-            Task task = File.WriteAllTextAsync($"{_progress}/{saveSlotId}.sav", JsonUtility.ToJson(_progress));
+            Task task = File.WriteAllTextAsync(savePath, JsonUtility.ToJson(_progress));
             yield return task;
 
             OnSaveEnd.Invoke();
+        }
+
+        private void SaveProgress0OnQuit() {
+            ProgressUpdate();
+            File.WriteAllText($"{_progress}/{0}.sav", JsonUtility.ToJson(_progress));
         }
 
         private void ProgressUpdate() {
@@ -47,13 +60,14 @@ namespace NGPTask.Save {
         }
 
         public void ApplyProgressFromSlot(int saveSlotId) {
-            StartCoroutine(LoadProgress(saveSlotId));
+            string savePath = $"{_progress}/{saveSlotId}.sav";
+            if (File.Exists(savePath)) StartCoroutine(LoadProgress(savePath));
         }
 
-        private IEnumerator LoadProgress(int saveSlotId) {
+        private IEnumerator LoadProgress(string savePath) {
             OnSaveStart.Invoke();
 
-            Task<string> task = File.ReadAllTextAsync($"{_progress}/{saveSlotId}.sav");
+            Task<string> task = File.ReadAllTextAsync(savePath);
             yield return task;
 
             _progress = JsonUtility.FromJson<SaveProgress>(task.Result);

@@ -140,6 +140,7 @@ namespace NGPTask.Item {
         public void SetFromSave(string[] saveStrings) {
             RefreshSlotSizeTo(saveStrings.Length);
             for(int i = 0; i < saveStrings.Length; i++) _slots[i].SetFromSaveString(saveStrings[i]);
+            OnChange.Invoke();
         }
 
         private void RefreshSlotSizeTo(int sizeNew) {
