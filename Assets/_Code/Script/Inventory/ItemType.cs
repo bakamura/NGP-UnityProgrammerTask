@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace NGPTask.Item {
-    [CreateAssetMenu(fileName = "Item", menuName = "Scriptable Objects/Item")]
+    [CreateAssetMenu(fileName = "Item", menuName = "Items/Simple")]
     public class ItemType : ScriptableObject {
 
         [field: SerializeField] public string DisplayName { get; private set; }
