@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace NGPTask.Item {
     public class Inventory : Singleton<Inventory> {
+
+        [field: SerializeField] public UnityEvent OnChange { get; private set; }
 
         [Header("Attributes")]
 
@@ -73,12 +76,19 @@ namespace NGPTask.Item {
         public int TryAdd(ItemType type, int amount = 1) {
             foreach (InventorySlot slot in _slots) {
                 if (slot.ItemType == type) amount = slot.TryAdd(amount);
-                if (amount <= 0) return 0;
+                if (amount <= 0) {
+                    OnChange.Invoke();
+                    return 0;
+                }
             }
             foreach (InventorySlot slot in _slots) {
                 if (slot.IsEmpty) amount = slot.Set(type, amount);
-                if (amount <= 0) return 0;
+                if (amount <= 0) {
+                    OnChange.Invoke();
+                    return 0;
+                }
             }
+            OnChange.Invoke();
             Debug.LogWarning($"Couldn't add {amount} of {type.name} to inventory, some system is probably faulty");
             return amount;
         }
@@ -87,8 +97,12 @@ namespace NGPTask.Item {
         public int TryRemove(ItemType type, int amount = 1) {
             foreach (InventorySlot slot in _slots) {
                 if (slot.ItemType == type) amount = slot.TryRemove(amount);
-                if (amount <= 0) return 0;
+                if (amount <= 0) {
+                    OnChange.Invoke();
+                    return 0;
+                }
             }
+            OnChange.Invoke();
             Debug.LogWarning($"Couldn't remove {amount} of {type.name} from inventory, some system is probably faulty");
             return amount;
         }
@@ -98,6 +112,7 @@ namespace NGPTask.Item {
             InventorySlot temp = _slots[indexFrom];
             _slots[indexFrom] = _slots[indexTo];
             _slots[indexTo] = temp;
+            OnChange.Invoke();
         }
 
         public void UseItemAt(int slotIndex) {

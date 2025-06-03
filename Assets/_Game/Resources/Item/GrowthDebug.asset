@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GrowthDebug
   m_EditorClassIdentifier: 
   <DisplayName>k__BackingField: 'Growth [DEBUG ITEM]'
-  <Description>k__BackingField: Debug Item to test Consumable System
-  <Icon>k__BackingField: {fileID: 0}
+  <Description>k__BackingField: '[Use] Makes you big for some time'
+  <Icon>k__BackingField: {fileID: -3243293964076229483, guid: 7ef2cae3802fe5d4f88346a10ec61bd1, type: 3}
   <StackSize>k__BackingField: 1
   _amountToConsume: 1
   _scaleNew: 2
