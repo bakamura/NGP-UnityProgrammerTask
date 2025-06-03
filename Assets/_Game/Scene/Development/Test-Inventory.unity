@@ -1969,7 +1969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a93da7a18b8394a9475a26b8909900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _releaseReference: {fileID: 3001919216989983466, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &1466871802
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,6 +2185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nameDisplay: {fileID: 507687127}
   _descriptionDisplay: {fileID: 370623326}
+  indexCurrent: 0
 --- !u!114 &2089716208
 MonoBehaviour:
   m_ObjectHideFlags: 0
