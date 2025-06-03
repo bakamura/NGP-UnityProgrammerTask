@@ -1,10 +1,10 @@
 using UnityEngine;
-using NGPTask.Player;
+using NGPTask.Item;
 
 namespace NGPTask.Object {
     public class ItemGiver : MonoBehaviour {
 
-        [SerializeField] private Item _itemType;
+        [SerializeField] private ItemType _itemType;
         [SerializeField, Min(1)] private int _amountGiven;
 
         public void TryGive() {

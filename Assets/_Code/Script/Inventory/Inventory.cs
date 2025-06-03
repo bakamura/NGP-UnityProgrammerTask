@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NGPTask.Player {
+namespace NGPTask.Item {
     public class Inventory : Singleton<Inventory> {
 
         [Header("Attributes")]
@@ -14,13 +14,13 @@ namespace NGPTask.Player {
 
         [System.Serializable]
         private class InventorySlot {
-            public Item ItemType { get; private set; }
+            public ItemType ItemType { get; private set; }
             public int ItemAmount { get; private set; }
 
             public bool IsEmpty => ItemType == null || ItemAmount < 1;
 
             /// <returns>The excess amount that didn't fit.</returns>
-            public int Set(Item type, int amount) {
+            public int Set(ItemType type, int amount) {
                 if (IsEmpty) {
                     ItemType = type;
                     return TryAdd(amount);
@@ -61,14 +61,14 @@ namespace NGPTask.Player {
             for (int i = 0; i < _slotAmount; i++) _slots.Add(new InventorySlot());
         }
 
-        public int GetAmountof(Item type) {
+        public int GetAmountof(ItemType type) {
             int amount = 0;
             foreach(InventorySlot slot in _slots) if(slot.ItemType == type) amount += slot.ItemAmount;
             return amount;
         }
 
         /// <returns>The excess amount that didn't fit.</returns>
-        public int TryAdd(Item type, int amount = 1) {
+        public int TryAdd(ItemType type, int amount = 1) {
             foreach (InventorySlot slot in _slots) {
                 if (slot.ItemType == type) amount = slot.TryAdd(amount);
                 if (amount <= 0) return 0;
@@ -82,7 +82,7 @@ namespace NGPTask.Player {
         }
 
         /// <returns>The excess amount that couldn't be removed.</returns>
-        public int TryRemove(Item type, int amount = 1) {
+        public int TryRemove(ItemType type, int amount = 1) {
             foreach (InventorySlot slot in _slots) {
                 if (slot.ItemType == type) amount = slot.TryRemove(amount);
                 if (amount <= 0) return 0;
