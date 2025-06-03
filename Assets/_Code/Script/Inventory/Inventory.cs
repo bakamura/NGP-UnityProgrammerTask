@@ -12,8 +12,10 @@ namespace NGPTask.Item {
 
         private List<InventorySlot> _slots = new List<InventorySlot>();
 
+        public IReadOnlyList<InventorySlot> Slots => _slots;
+
         [System.Serializable]
-        private class InventorySlot {
+        public class InventorySlot {
             public ItemType ItemType { get; private set; }
             public int ItemAmount { get; private set; }
 
@@ -63,7 +65,7 @@ namespace NGPTask.Item {
 
         public int GetAmountOf(ItemType type) {
             int amount = 0;
-            foreach(InventorySlot slot in _slots) if(slot.ItemType == type) amount += slot.ItemAmount;
+            foreach (InventorySlot slot in _slots) if (slot.ItemType == type) amount += slot.ItemAmount;
             return amount;
         }
 
@@ -96,6 +98,16 @@ namespace NGPTask.Item {
             InventorySlot temp = _slots[indexFrom];
             _slots[indexFrom] = _slots[indexTo];
             _slots[indexTo] = temp;
+        }
+
+        public void UseItemAt(int slotIndex) {
+            if (slotIndex < 0 || slotIndex >= _slots.Count || _slots[slotIndex].IsEmpty) return;
+            if (_slots[slotIndex].ItemType is IUsable) {
+                IUsable usableItem = _slots[slotIndex].ItemType as IUsable;
+                if (usableItem.CanUse) usableItem.Use();
+                else Debug.LogWarning($"Trying to Use '{_slots[slotIndex].ItemType.name}' but can't Use!");
+            }
+            else Debug.LogWarning($"Trying to Use '{_slots[slotIndex].ItemType.name}' but isn't IUsable!");
         }
 
     }
