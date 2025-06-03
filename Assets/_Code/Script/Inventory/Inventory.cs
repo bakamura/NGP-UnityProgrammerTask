@@ -58,6 +58,16 @@ namespace NGPTask.Item {
                 ItemType = null;
                 ItemAmount = 0;
             }
+
+            public string GetSaveString() => ItemType != null ? $"{ItemType.name}/{ItemAmount}" : "";
+            
+            public void SetFromSaveString(string saveString) {
+                if (string.IsNullOrEmpty(saveString)) return;
+                string[] strs = saveString.Split('/');
+                ItemType = Resources.Load<ItemType>($"Item/{strs[0]}");
+                ItemAmount = int.Parse(strs[1]);
+            }
+
         }
 
         protected override void Awake() {
@@ -128,5 +138,17 @@ namespace NGPTask.Item {
             else Debug.LogWarning($"Trying to Use '{_slots[slotIndex].ItemType.name}' but isn't IUsable!");
         }
 
+        public void SetFromSave(string[] saveStrings) {
+            RefreshSlotSizeTo(saveStrings.Length);
+            for(int i = 0; i < saveStrings.Length; i++) _slots[i].SetFromSaveString(saveStrings[i]);
+            OnChange.Invoke();
+        }
+
+        private void RefreshSlotSizeTo(int sizeNew) {
+            if (_slots.Count < sizeNew) {
+                while (_slots.Count != sizeNew) _slots.Add(new InventorySlot());
+            }
+            else while (_slots.Count != sizeNew) _slots.RemoveAt(0);
+        }
     }
 }

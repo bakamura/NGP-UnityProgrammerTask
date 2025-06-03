@@ -13,7 +13,7 @@ namespace NGPTask.UI {
         [Header("Cache")]
 
         private RectTransform _rectTransform;
-        public int indexCurrent;
+        [HideInInspector] public int indexCurrent;
 
         protected override void Awake() {
             base.Awake();
