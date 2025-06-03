@@ -39,6 +39,7 @@ namespace NGPTask.UI {
         }
 
         private void TryRefresh() {
+            _isOpen = true;
             if (_inventoryDirty) {
                 Refresh();
                 _inventoryDirty = false;
@@ -48,7 +49,6 @@ namespace NGPTask.UI {
         private void SetClosed() => _isOpen = false; //
 
         private void Refresh() {
-            _isOpen = true;
             IReadOnlyList<Inventory.InventorySlot> inventorySlots = Inventory.Instance.Slots;
             if (_slotDisplays.Count != inventorySlots.Count) RefreshSizeTo(inventorySlots.Count);
             for (int i = 0; i < _slotDisplays.Count; i++) _slotDisplays[i].DisplayUpdate(inventorySlots[i], i);
