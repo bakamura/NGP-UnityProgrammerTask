@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e27f589c1ba6ff49a7cef0c6913e5a0, type: 3}
-  m_Name: ShinyShell
+  m_Name: Egg
   m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: Shiny Shell
-  <Description>k__BackingField: A Shiny Shell. No particular value
-  <Icon>k__BackingField: {fileID: 0}
-  <StackSize>k__BackingField: 7
+  <DisplayName>k__BackingField: Egg
+  <Description>k__BackingField: Egg. Nothing you can do about it
+  <Icon>k__BackingField: {fileID: -5144238022852969543, guid: b448f394336473149bf1307c70054eef, type: 3}
+  <StackSize>k__BackingField: 8
