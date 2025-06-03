@@ -61,7 +61,7 @@ namespace NGPTask.Item {
             for (int i = 0; i < _slotAmount; i++) _slots.Add(new InventorySlot());
         }
 
-        public int GetAmountof(ItemType type) {
+        public int GetAmountOf(ItemType type) {
             int amount = 0;
             foreach(InventorySlot slot in _slots) if(slot.ItemType == type) amount += slot.ItemAmount;
             return amount;
