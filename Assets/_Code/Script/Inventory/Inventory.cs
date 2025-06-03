@@ -12,6 +12,7 @@ namespace NGPTask.Player {
 
         private List<InventorySlot> _slots = new List<InventorySlot>();
 
+        [System.Serializable]
         private class InventorySlot {
             public Item ItemType { get; private set; }
             public int ItemAmount { get; private set; }
@@ -31,8 +32,9 @@ namespace NGPTask.Player {
             /// <returns>The excess amount that didn't fit.</returns>
             public int TryAdd(int amount) {
                 ItemAmount += amount;
-                int excess = ItemAmount % ItemType.StackSize;
-                if (excess > 0) ItemAmount = ItemType.StackSize;
+                if (ItemAmount <= ItemType.StackSize) return 0;
+                int excess = ItemAmount - ItemType.StackSize;
+                ItemAmount = ItemType.StackSize;
                 return excess;
             }
 
