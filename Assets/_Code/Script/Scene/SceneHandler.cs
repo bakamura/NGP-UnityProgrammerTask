@@ -17,7 +17,7 @@ namespace NGPTask.Scene {
         private HashSet<string> _scenesLoaded = new HashSet<string>();
 
         private void Start() {
-            StartCoroutine(Load(_firstSceneLoaded));
+            TryLoad(_firstSceneLoaded);
         }
 
         public void TryLoad(string sceneName, UnityEvent onSceneLoad = null) {
