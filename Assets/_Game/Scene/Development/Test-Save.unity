@@ -853,6 +853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loadSlot0OnSetup: 1
+  _autoSaveSlot0OnQuit: 1
   <OnLoadStart>k__BackingField:
     m_PersistentCalls:
       m_Calls: []

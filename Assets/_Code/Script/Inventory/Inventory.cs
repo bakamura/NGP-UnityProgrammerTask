@@ -59,11 +59,12 @@ namespace NGPTask.Item {
                 ItemAmount = 0;
             }
 
-            public string GetSaveString() => $"{ItemType.name}/{ItemAmount}";
+            public string GetSaveString() => ItemType != null ? $"{ItemType.name}/{ItemAmount}" : "";
             
             public void SetFromSaveString(string saveString) {
+                if (string.IsNullOrEmpty(saveString)) return;
                 string[] strs = saveString.Split('/');
-                ItemType = Resources.Load<ItemType>(strs[0]);
+                ItemType = Resources.Load<ItemType>($"Item/{strs[0]}");
                 ItemAmount = int.Parse(strs[1]);
             }
 

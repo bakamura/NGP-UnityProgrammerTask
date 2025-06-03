@@ -17,7 +17,7 @@ namespace NGPTask.Save {
         [field: SerializeField] public UnityEvent OnSaveStart { get; private set; }
         [field: SerializeField] public UnityEvent OnSaveEnd { get; private set; }
 
-        private SaveProgress _progress;
+        private SaveProgress _progress = new SaveProgress();
 
         public static string ProgressFolderName { get; private set; } = "Save";
         private static string _progressPath;
@@ -36,7 +36,7 @@ namespace NGPTask.Save {
 
         public void SaveProgressInSlot(int saveSlotId) {
             ProgressUpdate();
-            StartCoroutine(SaveProgress($"{_progress}/{saveSlotId}.sav"));
+            StartCoroutine(SaveProgress($"{_progressPath}/{saveSlotId}.sav"));
         }
 
         private IEnumerator SaveProgress(string savePath) {
@@ -50,7 +50,7 @@ namespace NGPTask.Save {
 
         private void SaveProgress0OnQuit() {
             ProgressUpdate();
-            File.WriteAllText($"{_progress}/{0}.sav", JsonUtility.ToJson(_progress));
+            File.WriteAllText($"{_progressPath}/{0}.sav", JsonUtility.ToJson(_progress));
         }
 
         private void ProgressUpdate() {
@@ -60,7 +60,7 @@ namespace NGPTask.Save {
         }
 
         public void ApplyProgressFromSlot(int saveSlotId) {
-            string savePath = $"{_progress}/{saveSlotId}.sav";
+            string savePath = $"{_progressPath}/{saveSlotId}.sav";
             if (File.Exists(savePath)) StartCoroutine(LoadProgress(savePath));
         }
 

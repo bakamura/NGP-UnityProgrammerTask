@@ -1,10 +1,9 @@
-using UnityEngine;
 
 namespace NGPTask.Save {
     [System.Serializable]
     public class SaveProgress {
 
-        public string[] inventoryItems;
+        public string[] inventoryItems = new string[0];
 
     }
 }
