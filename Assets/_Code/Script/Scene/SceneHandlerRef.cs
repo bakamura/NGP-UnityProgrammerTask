@@ -1,10 +1,15 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace NGPTask.Scene {
     public class SceneHandlerRef : MonoBehaviour {
 
-        public void Load(string sceneName) => SceneHandler.Instance.Load(sceneName);
-        public void Unload(string sceneName) => SceneHandler.Instance.Unload(sceneName);
+        [SerializeField] private string _sceneName;
+        [SerializeField] private UnityEvent _onSceneLoaded;
+
+        public void Load() => SceneHandler.Instance.TryLoad(_sceneName, _onSceneLoaded);
+        public void Unload() => SceneHandler.Instance.TryUnload(_sceneName);
+        public void UnloadThisToLoad(string sceneLoaded) => SceneHandler.Instance.UnloadThenLoad(_sceneName, sceneLoaded);
 
     }
 }
