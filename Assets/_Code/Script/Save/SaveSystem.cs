@@ -34,7 +34,7 @@ namespace NGPTask.Save {
         private IEnumerator SaveProgress(int saveSlotId) {
             OnSaveStart.Invoke();
 
-            Task task = File.WriteAllTextAsync($"{_progress}/{saveSlotId}.sav", JsonUtility.ToJson(_progress);
+            Task task = File.WriteAllTextAsync($"{_progress}/{saveSlotId}.sav", JsonUtility.ToJson(_progress));
             yield return task;
 
             OnSaveEnd.Invoke();

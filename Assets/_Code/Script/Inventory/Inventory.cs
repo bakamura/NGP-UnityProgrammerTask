@@ -61,7 +61,7 @@ namespace NGPTask.Item {
 
             public string GetSaveString() => $"{ItemType.name}/{ItemAmount}";
             
-            public void SetSaveString(string saveString) {
+            public void SetFromSaveString(string saveString) {
                 string[] strs = saveString.Split('/');
                 ItemType = Resources.Load<ItemType>(strs[0]);
                 ItemAmount = int.Parse(strs[1]);
@@ -138,8 +138,15 @@ namespace NGPTask.Item {
         }
 
         public void SetFromSave(string[] saveStrings) {
-            //
+            RefreshSlotSizeTo(saveStrings.Length);
+            for(int i = 0; i < saveStrings.Length; i++) _slots[i].SetFromSaveString(saveStrings[i]);
         }
 
+        private void RefreshSlotSizeTo(int sizeNew) {
+            if (_slots.Count < sizeNew) {
+                while (_slots.Count != sizeNew) _slots.Add(new InventorySlot());
+            }
+            else while (_slots.Count != sizeNew) _slots.RemoveAt(0);
+        }
     }
 }
