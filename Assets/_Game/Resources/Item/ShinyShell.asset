@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: ShinyShell
   m_EditorClassIdentifier: 
   <DisplayName>k__BackingField: Shiny Shell
+  <Description>k__BackingField: A Shiny Shell. No particular value
   <Icon>k__BackingField: {fileID: 0}
   <StackSize>k__BackingField: 7

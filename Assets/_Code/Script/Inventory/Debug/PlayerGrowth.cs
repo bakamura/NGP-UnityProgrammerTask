@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using NGPTask.Item;
 
-namespace NGPTask.Item {
+namespace NGPTask.Debugging {
     [CreateAssetMenu(fileName = "Item", menuName = "Items/ConsumableGrowth")]
     public class PlayerGrowth : Consumable {
 

@@ -101,7 +101,10 @@ namespace NGPTask.Item {
         }
 
         public void UseItemAt(int slotIndex) {
-            if (slotIndex < 0 || slotIndex >= _slots.Count || _slots[slotIndex].IsEmpty) return;
+            if (slotIndex < 0 || slotIndex >= _slots.Count || _slots[slotIndex].IsEmpty) {
+                Debug.LogWarning($"Trying to Use invalid InventorySlot!");
+                return;
+            }
             if (_slots[slotIndex].ItemType is IUsable) {
                 IUsable usableItem = _slots[slotIndex].ItemType as IUsable;
                 if (usableItem.CanUse) usableItem.Use();

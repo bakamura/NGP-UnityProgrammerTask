@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b4790a735f6bbe49beb7a70411dc3af, type: 3}
   m_Name: GrowthDebug
   m_EditorClassIdentifier: 
-  <DisplayName>k__BackingField: 
-  <Description>k__BackingField: 
+  <DisplayName>k__BackingField: 'Growth [DEBUG ITEM]'
+  <Description>k__BackingField: Debug Item to test Consumable System
   <Icon>k__BackingField: {fileID: 0}
-  <StackSize>k__BackingField: 0
-  _amountToConsume: 0
-  _scaleNew: 0
-  _duration: 0
+  <StackSize>k__BackingField: 1
+  _amountToConsume: 1
+  _scaleNew: 2
+  _duration: 5
