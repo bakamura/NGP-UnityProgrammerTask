@@ -60,5 +60,11 @@ namespace NGPTask.UI {
             else while (_slotDisplays.Count != sizeNew) _slotDisplays.RemoveAt(0);
         }
 
+#if UNITY_EDITOR
+        private void OnValidate() {
+            if (!TryGetComponent(out Menu menu)) Debug.LogWarning($"Please Attach a {nameof(Menu)} script to {nameof(InventoryDisplay)} '{name}'");
+        }
+#endif
+
     }
 }
