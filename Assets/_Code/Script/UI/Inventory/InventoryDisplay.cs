@@ -4,7 +4,7 @@ using NGPTask.Item;
 
 namespace NGPTask.UI {
     //[RequireComponent(typeof(Menu))]
-    public class InventoryDisplay : MonoBehaviour {
+    public class InventoryDisplay : Singleton<InventoryDisplay> {
 
         [Header("Attributes")]
 
@@ -17,7 +17,11 @@ namespace NGPTask.UI {
         private bool _inventoryDirty = true;
         private List<InventorySlotDisplay> _slotDisplays = new List<InventorySlotDisplay>();
 
-        private void Awake() {
+        public bool deactivateAfterFade { get; set; }
+
+        protected override void Awake() {
+            base.Awake();
+
             if (TryGetComponent(out Menu menu)) {
                 menu.OnOpenStart.AddListener(TryRefresh);
                 menu.OnCloseStart.AddListener(SetClosed); //
@@ -60,6 +64,20 @@ namespace NGPTask.UI {
             }
             else while (_slotDisplays.Count != sizeNew) _slotDisplays.RemoveAt(0);
         }
+
+        public void ToggleDisplay(bool isOn) {
+            if (isOn) transform.parent.gameObject.GetComponent<Menu>().Open();
+            else transform.parent.gameObject.GetComponent<Menu>().Close();
+        }
+
+        public void DeactivateIfMainMenu() {
+            if (deactivateAfterFade) {
+                deactivateAfterFade = false;
+                ToggleDisplay(false);
+            }
+        }
+
+        public void TogglePlayerMap(bool isOn) => InputHandler.Instance.ToggleInputMap(InputHandler.MapNames.Player, isOn);
 
 #if UNITY_EDITOR
         private void OnValidate() {

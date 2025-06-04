@@ -16,12 +16,11 @@ namespace NGPTask.Debugging {
         }
 
         private IEnumerator EffectRoutine() {
-            float scaleDefault = Player.Movement.Instance.transform.localScale.x;
             Player.Movement.Instance.transform.localScale = _scaleNew * Vector3.one;
             
             yield return new WaitForSeconds(_duration);
 
-            Player.Movement.Instance.transform.localScale = scaleDefault * Vector3.one;
+            Player.Movement.Instance.transform.localScale = Vector3.one;
         }
 
     }
