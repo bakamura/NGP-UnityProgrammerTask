@@ -46,11 +46,10 @@ namespace NGPTask.Item {
             /// <returns>The excess amount that couldn't be removed.</returns>
             public int TryRemove(int amount) {
                 ItemAmount -= amount;
+                if (ItemAmount > 0) return 0;
+                ItemType = null;
                 int excess = Mathf.Abs(ItemAmount);
-                if (ItemAmount <= 0) {
-                    ItemType = null;
-                    ItemAmount = 0;
-                }
+                ItemAmount = 0;
                 return excess;
             }
 
@@ -60,7 +59,7 @@ namespace NGPTask.Item {
             }
 
             public string GetSaveString() => ItemType != null ? $"{ItemType.name}/{ItemAmount}" : "";
-            
+
             public void SetFromSaveString(string saveString) {
                 if (string.IsNullOrEmpty(saveString)) return;
                 string[] strs = saveString.Split('/');
@@ -140,7 +139,7 @@ namespace NGPTask.Item {
 
         public void SetFromSave(string[] saveStrings) {
             RefreshSlotSizeTo(saveStrings.Length);
-            for(int i = 0; i < saveStrings.Length; i++) _slots[i].SetFromSaveString(saveStrings[i]);
+            for (int i = 0; i < saveStrings.Length; i++) _slots[i].SetFromSaveString(saveStrings[i]);
             OnChange.Invoke();
         }
 
