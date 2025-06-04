@@ -633,6 +633,18 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1137288336242472019, guid: 31b1273dd177eed4796384113c962f2e, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.7169812
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137288336242472019, guid: 31b1273dd177eed4796384113c962f2e, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.67281044
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137288336242472019, guid: 31b1273dd177eed4796384113c962f2e, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.38216448
+      objectReference: {fileID: 0}
     - target: {fileID: 3176916473551587951, guid: 31b1273dd177eed4796384113c962f2e, type: 3}
       propertyPath: m_Name
       value: MainCamera
