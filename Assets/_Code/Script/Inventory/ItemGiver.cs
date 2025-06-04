@@ -12,5 +12,15 @@ namespace NGPTask.Object {
             else Debug.LogWarning($"No Item Type assigned to {nameof(ItemGiver)} '{name}', couldn't give");
         }
 
+        public void TryGiveUnlimited() {
+            if (_itemType != null) Inventory.Instance.TryAdd(_itemType, _amountGiven);
+            else Debug.LogWarning($"No Item Type assigned to {nameof(ItemGiver)} '{name}', couldn't give");
+        }
+
+        public void TryTakeUnlimited() {
+            if (_itemType != null) Inventory.Instance.TryRemove(_itemType, _amountGiven);
+            else Debug.LogWarning($"No Item Type assigned to {nameof(ItemGiver)} '{name}', couldn't remove");
+        }
+
     }
 }
